@@ -1,13 +1,17 @@
+sessionStorage.setItem('app_id','1f05a08d');
+sessionStorage.setItem('app_key','a614fb15c7618687c8cd2382d7a980a9');
+sessionStorage.setItem('endpoint','https://api.edamam.com/search');
+
 function getRecipies() {
   const ingredient = document.getElementById("ingredient").value;
-  const app_id = "1f05a08d";
-  const app_key = "a614fb15c7618687c8cd2382d7a980a9";
-  const endpoint = "https://api.edamam.com/search";
+  const app_id = sessionStorage.getItem('app_id');
+  const app_key = sessionStorage.getItem('app_key');
+  const endpoint = sessionStorage.getItem('endpoint');
   var recipedetails = "";
   var results = document.getElementById("results");
   let label = "";
   let image = "";
-  let recipeJson = "";
+  let uri = "";
 
   // Create the URL with query parameters
   const url = new URL(endpoint);
@@ -30,12 +34,12 @@ function getRecipies() {
       data.hits.forEach((recipe) => {
         label = recipe.recipe.label;
         image = recipe.recipe.image;
-        recipeJson = JSON.stringify(recipe.recipe);
+        uri = recipe.recipe.uri;
         recipedetails += `<div class="card m-3" style="width: 18rem;">
         <img src="${image}" class="card-img-top" alt="image">
         <div class="card-body">
           <h5 class="card-title">${label}</h5>
-          <button class="btn btn-warning" onclick="showRecipe("${recipeJson}")">View Recipe</button>
+          <button class="btn btn-warning" onclick="showRecipe('${uri}')">View Recipe</button>
         </div>
       </div>`;
       });
@@ -46,7 +50,8 @@ function getRecipies() {
     });
 }
 
-function showRecipe(recipeJson) {
-  const recipe = JSON.parse(recipeJson); // Parse the JSON string back to an object
-  console.log(recipe);
+function showRecipe(id) {
+  
+  sessionStorage.setItem('id',id);
+  window.location.href="recipe.html";
 }
