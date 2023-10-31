@@ -4,6 +4,12 @@ const app_key = sessionStorage.getItem("app_key");
 const endpoint = sessionStorage.getItem('endpoint');
 var healthLabelButtons = '';
 
+// Get the loading element
+const loadingElement = document.getElementById("loading");
+
+// Show the loading element
+loadingElement.style.display = "block";
+
 // Create the URL with query parameters
 const url = new URL(endpoint);
 url.searchParams.append("r", uri);
@@ -15,6 +21,8 @@ fetch(url)
 .then((response) => {
   // Check if the request was successful
   if (response.status === 200) {
+    // Hide the loading element
+    loadingElement.style.display = "none";
     return response.json(); // Parse the JSON response
   } else {
     throw new Error(`Request failed with status code ${response.status}`);

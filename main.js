@@ -1,17 +1,23 @@
-sessionStorage.setItem('app_id','1f05a08d');
-sessionStorage.setItem('app_key','a614fb15c7618687c8cd2382d7a980a9');
-sessionStorage.setItem('endpoint','https://api.edamam.com/search');
+sessionStorage.setItem("app_id", "1f05a08d");
+sessionStorage.setItem("app_key", "a614fb15c7618687c8cd2382d7a980a9");
+sessionStorage.setItem("endpoint", "https://api.edamam.com/search");
 
 function getRecipies() {
   const ingredient = document.getElementById("ingredient").value;
-  const app_id = sessionStorage.getItem('app_id');
-  const app_key = sessionStorage.getItem('app_key');
-  const endpoint = sessionStorage.getItem('endpoint');
+  const app_id = sessionStorage.getItem("app_id");
+  const app_key = sessionStorage.getItem("app_key");
+  const endpoint = sessionStorage.getItem("endpoint");
   var recipedetails = "";
   var results = document.getElementById("results");
   let label = "";
   let image = "";
   let uri = "";
+
+  // Get the loading element
+  const loadingElement = document.getElementById("loading");
+
+  // Show the loading element
+  loadingElement.style.display = "block";
 
   // Create the URL with query parameters
   const url = new URL(endpoint);
@@ -24,6 +30,8 @@ function getRecipies() {
     .then((response) => {
       // Check if the request was successful
       if (response.status === 200) {
+        // Hide the loading element
+        loadingElement.style.display = "none";
         return response.json(); // Parse the JSON response
       } else {
         throw new Error(`Request failed with status code ${response.status}`);
@@ -51,7 +59,6 @@ function getRecipies() {
 }
 
 function showRecipe(id) {
-  
-  sessionStorage.setItem('id',id);
-  window.location.href="recipe.html";
+  sessionStorage.setItem("id", id);
+  window.location.href = "recipe.html";
 }
