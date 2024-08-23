@@ -1,5 +1,5 @@
 sessionStorage.setItem("app_id", "1f05a08d");
-sessionStorage.setItem("app_key", "a614fb15c7618687c8cd2382d7a980a9");
+sessionStorage.setItem("app_key", "your_app_key");
 sessionStorage.setItem("endpoint", "https://api.edamam.com/search");
 
 function getRecipies() {
